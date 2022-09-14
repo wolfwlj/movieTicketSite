@@ -3,6 +3,7 @@ package main
 import (
 	"movieBackend/controllers"
 	"movieBackend/initializers"
+	"movieBackend/middleware"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -27,6 +28,15 @@ func main() {
 
 	// router.GET("/test", controllers.KlasCreate)
 	router.GET("/test", controllers.Test)
+	// user router : --------------------------------------------------------------
 
+	router.POST("/signup", controllers.Signup)
+	router.POST("/login", controllers.Login)
+
+	// protected user routes : -----------------------------------------------------
+	router.GET("/validate", middleware.RequireAuth, controllers.Validate)
+	router.POST("/logout", middleware.RequireAuth, controllers.Logout)
+
+	//-------------------End of user routes----------------------------------------
 	router.Run(":9090")
 }
