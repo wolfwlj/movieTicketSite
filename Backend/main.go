@@ -28,15 +28,28 @@ func main() {
 
 	// router.GET("/test", controllers.KlasCreate)
 	router.GET("/test", controllers.Test)
-	// user router : --------------------------------------------------------------
 
+	// auth router : --------------------------------------------------------------
 	router.POST("/signup", controllers.Signup)
 	router.POST("/login", controllers.Login)
 
-	// protected user routes : -----------------------------------------------------
+	// protected auth routes :
 	router.GET("/validate", middleware.RequireAuth, controllers.Validate)
 	router.POST("/logout", middleware.RequireAuth, controllers.Logout)
+	//-------------------End of auth routes----------------------------------------
 
-	//-------------------End of user routes----------------------------------------
+	// room route(s) : -----------------------------------------------------------
+	router.POST("/room", middleware.RequireAuth, controllers.RoomCreate)
+	router.GET("/room", middleware.RequireAuth, controllers.RoomIndex)
+	router.GET("/room/:id", middleware.RequireAuth, controllers.RoomShow)
+	router.PUT("/room/:id", middleware.RequireAuth, controllers.RoomUpdate)
+	router.DELETE("/room/:id", middleware.RequireAuth, controllers.RoomDelete)
+	// ------- End of lessen routes -----------------------------------------------
+
+	// movie route(s) : -----------------------------------------------------------
+	router.POST("/movie", middleware.RequireAuth, controllers.MovieCreate)
+
+	// ------- End of lessen routes -----------------------------------------------
+
 	router.Run(":9090")
 }
