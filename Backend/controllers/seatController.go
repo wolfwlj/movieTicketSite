@@ -4,6 +4,9 @@ import (
 	"fmt"
 	"movieBackend/initializers"
 	"movieBackend/models"
+	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 //dit is een helper functie voor de room create functie, hier worden de seats aangemaakt op basis van-
@@ -52,6 +55,35 @@ func CreateSeats(roomID uint, row_count uint, row_seat_quantity uint) bool {
 	}
 
 	return true
-
 	// Weet niet zeker of het de beste implementatie is, maar ben er wel tevreden mee
+}
+
+func ReserveSeat(c *gin.Context) {
+	var body struct {
+		Seat_id  uint
+		User_id  uint
+		Movie_id uint
+	}
+	c.Bind(&body)
+	var seat models.Seat
+	initializers.DB.First(&seat, body.Seat_id)
+
+	if seat.Reservation_state == "available" {
+		seat.Reservation_state = "reserved"
+		initializers.DB.Save(&seat)
+	} else {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": "seat has already been reserved",
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"message": "seat reserved",
+		"seat":    seat,
+		"user_id": body.User_id,
+		"movie":   body.Movie_id,
+		"room_id": seat.Room_id_fk,
+	})
+
 }

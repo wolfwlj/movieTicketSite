@@ -10,4 +10,6 @@ type Seat struct {
 	Room              Room `gorm:"foreignKey:room_id_fk"`
 	User_id_fk        *uint
 	User              User `gorm:"foreignKey:user_id_fk"`
+	Movie_id_fk       *uint
+	Movie             User `gorm:"foreignKey:movie_id_fk"`
 }

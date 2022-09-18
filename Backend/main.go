@@ -49,7 +49,11 @@ func main() {
 	// movie route(s) : -----------------------------------------------------------
 	router.POST("/movie", middleware.RequireAuth, controllers.MovieCreate)
 
-	// ------- End of lessen routes -----------------------------------------------
+	// ------- End of movie routes -----------------------------------------------
+
+	// seat route(s) : -----------------------------------------------------------
+	router.POST("/seat", middleware.RequireAuth, controllers.ReserveSeat)
+	// ------- End of movie routes -----------------------------------------------
 
 	router.Run(":9090")
 }
