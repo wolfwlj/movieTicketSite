@@ -14,6 +14,7 @@ func MovieCreate(c *gin.Context) {
 		Viewing_date       string
 		Viewing_start_time string
 		Viewing_end_time   string
+		Image_url          string
 		Room_id_fk         uint
 	}
 
@@ -24,6 +25,7 @@ func MovieCreate(c *gin.Context) {
 		Viewing_date:       body.Viewing_date,
 		Viewing_start_time: body.Viewing_start_time,
 		Viewing_end_time:   body.Viewing_end_time,
+		Image_url:          body.Image_url,
 		Room_id_fk:         body.Room_id_fk,
 	}
 
@@ -75,6 +77,7 @@ func MovieUpdate(c *gin.Context) {
 		Viewing_date       string
 		Viewing_start_time string
 		Viewing_end_time   string
+		Image_url          string
 		Room_id_fk         uint
 	}
 
@@ -90,6 +93,7 @@ func MovieUpdate(c *gin.Context) {
 			Viewing_date:       body.Viewing_date,
 			Viewing_start_time: body.Viewing_start_time,
 			Viewing_end_time:   body.Viewing_end_time,
+			Image_url:          body.Image_url,
 			Room_id_fk:         body.Room_id_fk,
 		})
 

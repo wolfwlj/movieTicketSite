@@ -1,15 +1,37 @@
 import { SyntheticEvent, useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import FormContainer from '../components/FormContainer'
+import { useNavigate  } from 'react-router'
+interface Props {
+    usernameEmit: string
+    setUsernameEmit: (username: string) => void
+  }
 
-const LoginScreen = () => {
-    const [email, setEmail] = useState('')
+const LoginScreen = ({usernameEmit, setUsernameEmit}: Props) => {
+    const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    
 
-    const submitHandler = (e: SyntheticEvent) => {
+    let navigate = useNavigate()
+
+    const submitHandler = async (e: SyntheticEvent) => {
         e.preventDefault()
-        console.log(email, password)
+
+        const response = await fetch('http://localhost:9090/login', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            credentials: 'include',
+            body: JSON.stringify({
+                'Username' : username,
+                'Password' : password,
+            
+            })
+        })
+        const data = await response.json()
+        setUsernameEmit(data.Username)
+
+
+
+        navigate('/')
     }
 
 
@@ -19,14 +41,14 @@ const LoginScreen = () => {
     <FormContainer>
         <h1>Login</h1>
         <Form onSubmit={submitHandler}>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="Enter your email" 
-                    value={email} onChange={(e) => setEmail(e.target.value)} 
+            <Form.Group className="mb-3" controlId="username">
+                <Form.Label>Username</Form.Label>
+                <Form.Control type="Username" placeholder="Enter your username" 
+                    value={username} onChange={(e) => setUsername(e.target.value)} 
                 />
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Group className="mb-3" controlId="password">
                 <Form.Label>Password</Form.Label>
                 <Form.Control type="password" placeholder="Password" 
                  value={password} onChange={(e) => setPassword(e.target.value)} 

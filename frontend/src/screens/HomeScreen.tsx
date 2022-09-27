@@ -1,8 +1,15 @@
-import React from 'react'
+  interface Props {
+  usernameEmit: string
+  // setUsernameEmit: (username: string) => void
 
-const HomeScreen = () => {
-  return (
-    <div><h1>Home page</h1></div>
+}
+const HomeScreen = ({usernameEmit }: Props) => {
+  // setUsernameEmit(usernameEmit)
+
+  return usernameEmit ? (
+    <h1>Welcome {usernameEmit}</h1>
+  ) : (
+    <h1>Welcome to the Home Page!</h1>
   )
 }
 

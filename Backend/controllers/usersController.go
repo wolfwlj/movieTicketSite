@@ -75,7 +75,7 @@ func Login(c *gin.Context) {
 	// c.Header("Access-Control-Allow-Headers", "Origin, Authorization, Content-Type, X-Requested-With, Accept")
 	// c.Header("Access-Control-Allow-Credentials", "true")
 	var body struct {
-		Email    string
+		Username string
 		Password string
 	}
 
@@ -85,16 +85,16 @@ func Login(c *gin.Context) {
 		})
 		return
 	}
-	//Find the user by email
+	//Find the user by username
 	var user models.User
 
-	initializers.DB.First(&user, "email= ?", body.Email)
+	initializers.DB.First(&user, "username= ?", body.Username)
 
 	//Check if the user exists
 
 	if user.ID == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "Invalid email or password",
+			"error": "Invalid username or password",
 		})
 		return
 	}
@@ -104,7 +104,7 @@ func Login(c *gin.Context) {
 	err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(body.Password))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "Invalid email or password",
+			"error": "Invalid username or password",
 		})
 		return
 	}
@@ -131,8 +131,12 @@ func Login(c *gin.Context) {
 	c.SetCookie("token", tokenString, 3600*24*30, "", "", false, true)
 	c.JSON(http.StatusOK, gin.H{
 		// "token": tokenString,
-		"name":  user.First_name,
-		"email": user.Email,
+
+		"First name": user.First_name,
+		"Last name":  user.Last_name,
+		"Username":   user.Username,
+		"Email":      user.Email,
+		"Birthdate":  user.Birthdate,
 	},
 	)
 
@@ -143,9 +147,11 @@ func Validate(c *gin.Context) {
 	user, _ := c.Get("user")
 
 	c.JSON(http.StatusOK, gin.H{
-		"First name": user.(models.User).First_name,
-		"Last name":  user.(models.User).Last_name,
+		"First_name": user.(models.User).First_name,
+		"Last_name":  user.(models.User).Last_name,
 		"Username":   user.(models.User).Username,
+		"Email":      user.(models.User).Email,
+		"Birthdate":  user.(models.User).Birthdate,
 	})
 
 }
