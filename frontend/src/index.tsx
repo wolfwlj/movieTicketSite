@@ -7,8 +7,12 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode >
+  <div >
     <App />
-  </React.StrictMode>
+  </div>
 );
-
+// root.render(
+//   <React.StrictMode >
+//     <App />
+//   </React.StrictMode>
+// );

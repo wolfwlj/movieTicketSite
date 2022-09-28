@@ -44,14 +44,46 @@ func MovieCreate(c *gin.Context) {
 }
 
 func MovieIndex(c *gin.Context) {
+	type MovieResStruct struct {
+		Movies   []models.Movie
+		RoomName string
+	}
+	RoomName := ""
+	var MoviesModel []models.Movie
 
-	var Movies []models.Movie
+	initializers.DB.Find(&MoviesModel)
 
-	initializers.DB.Find(&Movies)
+	roomId := MoviesModel[0].Room_id_fk
+
+	initializers.DB.Raw("SELECT room_name FROM rooms WHERE room_id = ?", roomId).Scan(&RoomName)
+
+	Movies := MovieResStruct{
+		Movies:   MoviesModel,
+		RoomName: RoomName,
+	}
 
 	c.JSON(200, gin.H{
 		"Movies": Movies,
 	})
+
+	// var Movies []models.Movie
+	// roomName := ""
+
+	// initializers.DB.Find(&Movies)
+
+	// roomId := Movies[0].Room_id_fk
+
+	// initializers.DB.Raw("SELECT room_name FROM rooms WHERE room_id = ?", roomId).Scan(&roomName)
+
+	// type MovieResStruct struct {
+	// 	Movies []models.Movie
+	// }
+	// var MoviesRes []MovieResStruct
+
+	// c.JSON(200, gin.H{
+	// 	"Movies":   Movies,
+	// 	"roomName": MoviesRes,
+	// })
 
 }
 

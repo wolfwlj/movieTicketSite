@@ -48,7 +48,7 @@ func main() {
 
 	// movie route(s) : -----------------------------------------------------------
 	router.POST("/movie", middleware.RequireAuth, controllers.MovieCreate)
-	router.GET("/movie", middleware.RequireAuth, controllers.MovieIndex)
+	router.GET("/movie", controllers.MovieIndex)
 	router.GET("/movie/:id", middleware.RequireAuth, controllers.MovieShow)
 	router.PUT("/movie/:id", middleware.RequireAuth, controllers.MovieUpdate)
 	router.DELETE("/movie/:id", middleware.RequireAuth, controllers.MovieDelete)

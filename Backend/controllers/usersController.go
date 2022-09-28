@@ -151,8 +151,7 @@ func Validate(c *gin.Context) {
 		"Last_name":  user.(models.User).Last_name,
 		"Username":   user.(models.User).Username,
 		"Email":      user.(models.User).Email,
-		"Birthdate":  user.(models.User).Birthdate,
-	})
+		"Birthdate":  user.(models.User).Birthdate})
 
 }
 func Logout(c *gin.Context) {
