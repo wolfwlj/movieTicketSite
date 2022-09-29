@@ -1,0 +1,26 @@
+
+
+
+
+.TicketContainer{
+    border: 1px black solid;
+    padding: 10px 10px;
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+
+
+
+.InnerSeatContainer{
+    border: 1px black solid;
+    padding: 10px 10px;
+    max-width: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

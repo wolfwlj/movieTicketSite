@@ -2,6 +2,8 @@ import React from 'react'
 import axios from 'axios'
 import { useEffect, useState} from 'react';
 import MovieWidget from './MovieWidget';
+import '../../styles/movie_container.css'
+
 
 const MoviesContainer = () => {
     const [movies, setMovies] = useState([])
@@ -26,15 +28,14 @@ const MoviesContainer = () => {
     }, [])
 
   return (
+    <div className="MoviesContainer">
+         <h2>movies contrainer</h2>
 
-    <div className='movie-container'>
-        <h2>movies contrainer</h2>
-         {movies.map((movie: any) => <MovieWidget movie={movie} room={room} key={movie.Movie_id} /> )} 
+        <div className='movie-container'>
 
-            
-     
-       
+            {movies.map((movie: any) => <MovieWidget movie={movie} room={room} key={movie.Movie_id} /> )} 
 
+        </div>
     </div>
   )
 }

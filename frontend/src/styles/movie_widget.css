@@ -1,0 +1,12 @@
+
+
+
+.MovieName-widget{}
+.MovieRoom-widget{}
+.MovieDate-widget{}
+.MovieImg-widget{
+    width: 400px;
+    height: 100%;
+    max-height: 100%;
+
+}

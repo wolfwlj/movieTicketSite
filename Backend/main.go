@@ -49,13 +49,15 @@ func main() {
 	// movie route(s) : -----------------------------------------------------------
 	router.POST("/movie", middleware.RequireAuth, controllers.MovieCreate)
 	router.GET("/movie", controllers.MovieIndex)
-	router.GET("/movie/:id", middleware.RequireAuth, controllers.MovieShow)
+	router.GET("/movie/:id", controllers.MovieShow)
 	router.PUT("/movie/:id", middleware.RequireAuth, controllers.MovieUpdate)
 	router.DELETE("/movie/:id", middleware.RequireAuth, controllers.MovieDelete)
 	// ------- End of movie routes -----------------------------------------------
 
 	// seat route(s) : -----------------------------------------------------------
 	router.POST("/seat", middleware.RequireAuth, controllers.ReserveSeat)
+	router.GET("/seat/:id", controllers.SeatIndex)
+
 	// ------- End of movie routes -----------------------------------------------
 
 	router.Run(":9090")

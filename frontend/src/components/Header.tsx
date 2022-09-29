@@ -36,6 +36,7 @@ const Header = ({usernameEmit, setUsernameEmit}: Props) => {
         {usernameEmit ? (
           <Nav className="ms-auto">
             <Nav.Link href="/profile">{usernameEmit}</Nav.Link>
+            <Nav.Link href="#" >My Tickets</Nav.Link>
             <Nav.Link onClick={logoutHandler} href="/logout">Logout</Nav.Link>
           </Nav>
         ) : (

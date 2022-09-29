@@ -88,6 +88,11 @@ func MovieIndex(c *gin.Context) {
 }
 
 func MovieShow(c *gin.Context) {
+	type MovieResStruct struct {
+		Movie    models.Movie
+		RoomName string
+	}
+	RoomName := ""
 
 	var Movie models.Movie
 
@@ -95,8 +100,17 @@ func MovieShow(c *gin.Context) {
 
 	initializers.DB.Raw("SELECT * FROM movies WHERE movie_id = ?", id).Scan(&Movie)
 
+	roomId := Movie.Room_id_fk
+
+	initializers.DB.Raw("SELECT room_name FROM rooms WHERE room_id = ?", roomId).Scan(&RoomName)
+
+	MoviesRes := MovieResStruct{
+		Movie:    Movie,
+		RoomName: RoomName,
+	}
+
 	c.JSON(200, gin.H{
-		"Movie": Movie,
+		"Movie": MoviesRes,
 	})
 
 }

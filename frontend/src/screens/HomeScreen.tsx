@@ -1,4 +1,4 @@
-import MoviesContainer from '../components/MoviesContainer'
+import MoviesContainer from '../components/HomeScreen/MoviesContainer'
 
 
 interface Props {

@@ -87,3 +87,42 @@ func ReserveSeat(c *gin.Context) {
 	})
 
 }
+
+func SeatIndex(c *gin.Context) {
+	type rowsCollumns struct {
+		Row_count         uint
+		Row_seat_quantity uint
+	}
+	type SeatResStruct struct {
+		Id                uint
+		Seat_name         string
+		Reservation_state string
+		Room_id_fk        uint
+		AmountRows        uint
+		AmountSeatsPerRow uint
+	}
+
+	var Seats []SeatResStruct
+	var rowsCollumnsTemp rowsCollumns
+
+	id := c.Param("id")
+
+	initializers.DB.Raw("SELECT id, seat_name, reservation_state, room_id_fk  FROM seats WHERE room_id_fk = ?", id).Scan(&Seats)
+
+	initializers.DB.Raw("SELECT room_id, row_count, row_seat_quantity FROM rooms WHERE room_id = ?", id).Scan(&rowsCollumnsTemp)
+
+	c.JSON(200, gin.H{
+		"Seats":    Seats,
+		"Quantity": rowsCollumnsTemp,
+	})
+
+	// var Seats []models.Seat
+	// id := c.Param("id")
+
+	// initializers.DB.Raw("SELECT id, seat_name, reservation_state, room_id_fk  FROM seats WHERE room_id_fk = ?", id).Scan(&Seats)
+
+	// c.JSON(200, gin.H{
+	// 	"Seats": Seats,
+	// })
+
+}

@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import HomeScreen from './screens/HomeScreen';
 import LoginScreen from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen';
+import TicketScreen from './screens/TicketScreen';
 
 
 
@@ -31,7 +32,7 @@ function App() {
     )()
   })
 
-  
+
 
 
 
@@ -44,6 +45,8 @@ function App() {
             <Route path="/" element={<HomeScreen usernameEmit={usernameEmit} />} />
             <Route path="/signup" element={<SignupScreen/>} />
             <Route path="/login" element={<LoginScreen usernameEmit={usernameEmit} setUsernameEmit={setUsernameEmit}/>} />
+            <Route path="/movie/:id" element={<TicketScreen />} />
+
           </Routes>
         </Container>
       </main>

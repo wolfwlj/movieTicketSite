@@ -5,7 +5,7 @@ import { useNavigate  } from 'react-router'
 interface Props {
     usernameEmit: string
     setUsernameEmit: (username: string) => void
-  }
+}
 
 const LoginScreen = ({usernameEmit, setUsernameEmit}: Props) => {
     const [username, setUsername] = useState('')
