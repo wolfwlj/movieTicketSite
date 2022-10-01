@@ -13,6 +13,7 @@ import TicketScreen from './screens/TicketScreen';
 
 function App() {
   const [usernameEmit, setUsernameEmit] = useState('')
+  const [userID, setUserID] = useState(0)
 
 
   useEffect(() => {
@@ -26,8 +27,14 @@ function App() {
       })
 
       const content = await res.json()
+      let arr = []
+      arr.push(content)
       setUsernameEmit(content.Username)
+      setUserID(content.id)
+
       console.log(usernameEmit)
+      console.log(userID)
+
     }
     )()
   })
@@ -39,13 +46,14 @@ function App() {
   return (
     <Router>
       <Header  usernameEmit={usernameEmit} setUsernameEmit={setUsernameEmit}/>
+      {/* <p>{content.Id}</p> */}
       <main >
         <Container>
           <Routes>
             <Route path="/" element={<HomeScreen usernameEmit={usernameEmit} />} />
             <Route path="/signup" element={<SignupScreen/>} />
             <Route path="/login" element={<LoginScreen usernameEmit={usernameEmit} setUsernameEmit={setUsernameEmit}/>} />
-            <Route path="/movie/:id" element={<TicketScreen />} />
+            <Route path="/movie/:id" element={<TicketScreen usernameEmit={usernameEmit} userID={userID}/>} />
 
           </Routes>
         </Container>

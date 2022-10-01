@@ -1,12 +1,16 @@
-import { useEffect, useState } from 'react'
-import { useParams} from "react-router-dom";
-import { getMovieIndex } from '../proxies/MovieIndex';
+
 import TicketContainer from "../components/TicketScreen/TicketContainer" 
 import '../styles/seats.css'
 
+interface Props {
+    usernameEmit: string
+    userID : Number
+    // setUsernameEmit: (username: string) => void
+  
+  }
+  
 
-
-function TicketScreen() {
+function TicketScreen({usernameEmit, userID} : Props) {
     
     
 
@@ -14,9 +18,8 @@ function TicketScreen() {
 return (
     <>  
         <div >
-            <h1>ticket screen</h1>
             <div className='TicketContainer'>
-                <TicketContainer />            
+                <TicketContainer userID={userID} usernameEmit={usernameEmit}/>            
             </div>
         </div>
 

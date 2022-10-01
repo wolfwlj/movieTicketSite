@@ -59,12 +59,17 @@ func CreateSeats(roomID uint, row_count uint, row_seat_quantity uint) bool {
 }
 
 func ReserveSeat(c *gin.Context) {
+
 	var body struct {
 		Seat_id  uint
 		User_id  uint
 		Movie_id uint
 	}
+
 	c.Bind(&body)
+
+	println(c.Request)
+
 	var seat models.Seat
 	initializers.DB.First(&seat, body.Seat_id)
 

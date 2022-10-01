@@ -7,15 +7,14 @@ import '../../styles/movie_container.css'
 
 const MoviesContainer = () => {
     const [movies, setMovies] = useState([])
-    const [room, setRoom] = useState('')
+    // const [room, setRoom] = useState('')
 
     const fetchMovies = async () => {
         await axios.get('http://localhost:9090/movie', { withCredentials: true })
         .then((response) => {
-            setMovies(response.data.Movies.Movies)
-            setRoom(response.data.Movies.RoomName)
+            setMovies(response.data.Movies)
 
-            console.log(response.data.Movies)
+            console.log(response.data)
         })
         .catch((error) => {
             console.log(error)
@@ -33,7 +32,7 @@ const MoviesContainer = () => {
 
         <div className='movie-container'>
 
-            {movies.map((movie: any) => <MovieWidget movie={movie} room={room} key={movie.Movie_id} /> )} 
+            {movies.map((movie: any) => <MovieWidget movie={movie}  key={movie.Movie_id} /> )} 
 
         </div>
     </div>

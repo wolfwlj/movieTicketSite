@@ -7,10 +7,12 @@ interface Props {
 
   movieRoomID: string;
   movieRoom: string;
-  
+  usernameEmit: string
+  userID : Number
+  movieID : Number
 }
 
-function SeatContainer({movieRoomID, movieRoom}: Props) {
+function SeatContainer({movieRoomID, movieRoom, usernameEmit, userID, movieID}: Props) {
 
   const [seats, setSeats] = useState([])
   const [seatRows, setSeatsRows] = useState(0)
@@ -41,9 +43,6 @@ function SeatContainer({movieRoomID, movieRoom}: Props) {
       .catch((err) => {
           console.log(err)
       })  
-
-
- 
   
   }
   useEffect(() => {
@@ -53,19 +52,23 @@ function SeatContainer({movieRoomID, movieRoom}: Props) {
 
 
   return (
+    <>
+    <div className='SeatScreen'>
+      <p className='screen-bold'>Movie Screen </p>
+    </div>
     <div className='InnerSeatContainer' style={ 
       { 
       display: 'grid',
       gridTemplateColumns: `repeat(${seatCollumns}, 1fr)`,
       gridTemplateRows: `repeat(${seatRows}, 1fr)`,
-      gridGap: '5px'
+      gridGap: '10px'
       }
 
       }>
-        
-        {seats.map((seat: any) => <Seat seat={seat}  key={seat.Id} /> )} 
+        {seats.map((seat: any) => <Seat userID={userID} usernameEmit={usernameEmit} movieID={movieID} seatID={seat.Id} seat={seat}  key={seat.Id} /> )} 
 
     </div>
+    </>
   )
 }
 
