@@ -29,7 +29,24 @@ func MovieCreate(c *gin.Context) {
 		Room_id_fk:         body.Room_id_fk,
 	}
 
+	//TODO : hier moet een transaction komen
+	//als de tickets niet aangemaakt kunnen worden moet de movie ook niet aangemaakt worden
+	//op dit moment wordt de movie wel aangemaakt als de tickets niet aangemaakt kunnen worden
+	//dit is niet de bedoeling ;/
+
 	result := initializers.DB.Create(&movie)
+
+	var movieID uint = movie.Movie_id
+	var roomID uint = movie.Room_id_fk
+
+	var seats []models.Seat
+
+	initializers.DB.Raw("SELECT * FROM seats WHERE room_id_fk = ?", body.Room_id_fk).Scan(&seats)
+
+	if !CreateTickets(movieID, roomID, seats) {
+		c.Status(500)
+		return
+	}
 
 	if result.Error != nil {
 		c.Status(400)

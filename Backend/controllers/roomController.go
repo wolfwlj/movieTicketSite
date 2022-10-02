@@ -27,6 +27,12 @@ func RoomCreate(c *gin.Context) {
 
 	//maak de stoelen aan op basis van de row count en row seat quantity
 	//(zie seatController.go)
+
+	//TODO : hier moet een transaction komen
+	//als de stoelen niet aangemaakt kunnen worden moet de room ook niet aangemaakt worden
+	//op dit moment wordt de room wel aangemaakt als de stoelen niet aangemaakt kunnen worden
+	//dit is niet de bedoeling ;/
+
 	var roomID uint = room.Room_id
 
 	if !CreateSeats(roomID, body.Row_count, body.Row_seat_quantity) {

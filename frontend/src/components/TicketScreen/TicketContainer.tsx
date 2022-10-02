@@ -19,7 +19,7 @@ function TicketContainer({usernameEmit, userID} : Props) {
     // const [movieStartTime, setMovieStartTime] = useState('')
     // const [movieEndTime, setMovieEndTime] = useState('')
 
-    const [movieRoomID, setMovieRoomID] = useState('')
+    const [movieRoomID, setMovieRoomID] = useState(0)
     const [movieRoom, setMovieRoom] = useState('')
  
     const {id} = useParams<{id: string}>()
@@ -30,7 +30,7 @@ function TicketContainer({usernameEmit, userID} : Props) {
     const fetchMovieIndex = async (id) => {
         await getMovieIndex(id)
         .then((data) => {
-            
+            console.log(data.Movie)
             setMovieName(data.Movie.Movie_name)
             // setMovieImg(data.Movie.Image_url)
             // setMovieViewingDate(data.Movie.Viewing_date)

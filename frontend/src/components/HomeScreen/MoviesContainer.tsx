@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useEffect, useState} from 'react';
 import MovieWidget from './MovieWidget';
 import '../../styles/movie_container.css'
+import Carousel from 'react-bootstrap/Carousel';
 
 
 const MoviesContainer = () => {
@@ -14,10 +15,9 @@ const MoviesContainer = () => {
         .then((response) => {
             setMovies(response.data.Movies)
 
-            console.log(response.data)
         })
         .catch((error) => {
-            console.log(error)
+            console.log(error.response.data.message)
         }
         )
     }
@@ -27,15 +27,13 @@ const MoviesContainer = () => {
     }, [])
 
   return (
-    <div className="MoviesContainer">
-         <h2>movies contrainer</h2>
-
-        <div className='movie-container'>
-
-            {movies.map((movie: any) => <MovieWidget movie={movie}  key={movie.Movie_id} /> )} 
-
-        </div>
-    </div>
+    // <div className="MoviesContainer">
+    <Carousel variant="dark" className='Movie-Carousel'>
+        
+                {movies.map((movie: any) => <Carousel.Item><MovieWidget movie={movie}  key={movie.Movie_id} />  </Carousel.Item>)} 
+       
+    {/* // </div> */}
+    </Carousel>
   )
 }
 

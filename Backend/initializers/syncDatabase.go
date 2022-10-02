@@ -8,5 +8,6 @@ func SyncDatabase() {
 	DB.AutoMigrate(&models.Room{})
 	DB.AutoMigrate(&models.Seat{})
 	DB.AutoMigrate(&models.User{})
+	DB.AutoMigrate(&models.Ticket{})
 
 }

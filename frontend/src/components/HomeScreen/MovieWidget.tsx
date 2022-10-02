@@ -1,24 +1,31 @@
 import React from 'react'
 import '../../styles/movie_widget.css' 
-
+import Carousel from 'react-bootstrap/Carousel';
 interface Props {
 
     movie: any
   }
 function MovieWidget({movie}: Props) {
   return (
-        <div key={movie.Movie_id}>  
+        <>
+            <div className='alignCenter'>
+                <img className="MovieImg-widget" src={movie.Image_url} />
 
-            <p key={movie.Movie_id} className="MovieName-widget">Movie name : {movie.Movie_name}</p> 
-            <p className="MovieDate-widget">viewing date : {movie.Viewing_date}</p>
-            <img className="MovieImg-widget" src={movie.Image_url} />
+            </div>
 
-            <button> 
-                <a href={`/movie/${movie.Movie_id}`}>View</a>
-            </button>
+ 
+            <Carousel.Caption className="MovieName-Caption">
 
-        </div> 
+                <h4 className="MovieName-widget white">{movie.Movie_name}</h4>
 
+            </Carousel.Caption>
+            <Carousel.Caption className="MovieButton-Caption">
+                <button> 
+                    <a className='white' href={`/movie/${movie.Movie_id}`}>Buy a ticket</a>
+                </button>            
+            </Carousel.Caption>
+
+</>
     )
 }
 

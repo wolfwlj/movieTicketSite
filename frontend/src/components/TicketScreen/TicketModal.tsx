@@ -1,6 +1,9 @@
 import { useEffect } from 'react'
 import '../../styles/seats.css'
+import { useParams } from "react-router-dom";
+
 import { PostReservation } from '../../proxies/PostReservation'
+import { useNavigate  } from 'react-router'
 
 export interface ModalProps {
     isShown: boolean;
@@ -10,6 +13,7 @@ export interface ModalProps {
     userID : Number
     movieID : Number
     seatID : Number
+
   }
 
 
@@ -35,28 +39,31 @@ const OVERLAY_STYLES = {
 
 
 function TicketModal({isShown, hide, seat_name, userID, movieID, seatID}: ModalProps) {
+    let navigate = useNavigate()
+    const {id} = useParams<{id: string}>()
 
+    const navParam = Number(id)
 
-    const fetchSeats = async (userID, seatID, movieID) => {
+    const reserveSeat = async (userID, seatID, movieID) => {
 
         await PostReservation(userID, seatID, movieID)
             .then((data) => {
                 console.log(data)
-    
-            // setSeatSeatID(data.Id)
+                navigate(0);
+                // setSeatSeatID(data.Id)
             // setSeatName(data.Seat_name)
             // setSeatState(data.Reservation_state)
             // setRoomID(data.Room_id_fk)
     
             })
             .catch((err) => {
-                console.log(err)
+                console.log(err.response.data.message)
             })  
-    
+
     }
     // useEffect(() => {
-    //   fetchSeats(userID, seatID, movieID)
-    // }, [userID, seatID, movieID]);
+    // //     fetchSeats(navParam)
+    // // }, [movieID]);
 
 
     if( !isShown) return null
@@ -68,7 +75,7 @@ function TicketModal({isShown, hide, seat_name, userID, movieID, seatID}: ModalP
 
             <h3>{seat_name}</h3>
 
-            <button onClick={() => fetchSeats(userID, seatID, movieID)}>Reserve seat</button>
+            <button onClick={() => reserveSeat(userID, seatID, movieID)}>Reserve seat</button>
 
             <button onClick={hide}>Close</button>            
         </div>

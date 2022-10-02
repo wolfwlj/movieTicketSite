@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"movieBackend/initializers"
 	"movieBackend/models"
-	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
@@ -41,9 +40,8 @@ func CreateSeats(roomID uint, row_count uint, row_seat_quantity uint) bool {
 		for j = 0; j < row_seat_quantity; j++ {
 			seatName := rowLetter + fmt.Sprint(j+1)
 			seat := models.Seat{
-				Seat_name:         seatName,
-				Reservation_state: "available",
-				Room_id_fk:        roomID,
+				Seat_name:  seatName,
+				Room_id_fk: roomID,
 			}
 
 			result := initializers.DB.Create(&seat)
@@ -58,40 +56,44 @@ func CreateSeats(roomID uint, row_count uint, row_seat_quantity uint) bool {
 	// Weet niet zeker of het de beste implementatie is, maar ben er wel tevreden mee
 }
 
-func ReserveSeat(c *gin.Context) {
+// func ReserveSeat(c *gin.Context) {
 
-	var body struct {
-		Seat_id  uint
-		User_id  uint
-		Movie_id uint
-	}
+// 	var body struct {
+// 		Seat_id  uint
+// 		User_id  uint
+// 		Movie_id uint
+// 	}
 
-	c.Bind(&body)
+// 	c.Bind(&body)
 
-	println(c.Request)
+// 	println(c.Request)
 
-	var seat models.Seat
-	initializers.DB.First(&seat, body.Seat_id)
+// 	var ticket models.Ticket
+// 	initializers.DB.First(&ticket, body.Seat_id)
 
-	if seat.Reservation_state == "available" {
-		seat.Reservation_state = "reserved"
-		initializers.DB.Save(&seat)
-	} else {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"message": "seat has already been reserved",
-		})
-		return
-	}
+// 	if ticket.Reservation_state == "available" {
 
-	c.JSON(http.StatusOK, gin.H{
-		"message": "seat reserved",
-		"seat":    seat,
-		"user_id": body.User_id,
-		"movie":   body.Movie_id,
-		"room_id": seat.Room_id_fk,
-	})
+// 		ticket.Reservation_state = "reserved"
+// 		ticket.User_id_fk = &body.User_id
+// 		ticket.Movie_id_fk = body.Movie_id
 
-}
+// 		initializers.DB.Save(&ticket)
+// 	} else if ticket.Reservation_state == "reserved" {
+// 		c.JSON(http.StatusBadRequest, gin.H{
+// 			"message": "seat has already been reserved",
+// 		})
+// 		return
+// 	}
+
+// 	c.JSON(http.StatusOK, gin.H{
+// 		"message": "seat reserved",
+// 		"ticket":  ticket,
+// 		"user_id": body.User_id,
+// 		"movie":   body.Movie_id,
+// 		"room_id": ticket.Room_id_fk,
+// 	})
+
+// }
 
 func SeatIndex(c *gin.Context) {
 	type rowsCollumns struct {
@@ -101,20 +103,28 @@ func SeatIndex(c *gin.Context) {
 	type SeatResStruct struct {
 		Id                uint
 		Seat_name         string
-		Reservation_state string
 		Room_id_fk        uint
-		AmountRows        uint
-		AmountSeatsPerRow uint
+		Reservation_state string
 	}
 
 	var Seats []SeatResStruct
 	var rowsCollumnsTemp rowsCollumns
+	var reservation_state string
+	var roomID uint
 
-	id := c.Param("id")
+	movieID := c.Param("movieID")
 
-	initializers.DB.Raw("SELECT id, seat_name, reservation_state, room_id_fk  FROM seats WHERE room_id_fk = ?", id).Scan(&Seats)
+	initializers.DB.Raw("SELECT room_id_fk FROM movies WHERE movie_id = ?", movieID).Scan(&roomID)
+	initializers.DB.Raw("SELECT id, seat_name, room_id_fk  FROM seats WHERE room_id_fk = ?", roomID).Scan(&Seats)
+	initializers.DB.Raw("SELECT row_count, row_seat_quantity FROM rooms WHERE room_id = ?", roomID).Scan(&rowsCollumnsTemp)
 
-	initializers.DB.Raw("SELECT room_id, row_count, row_seat_quantity FROM rooms WHERE room_id = ?", id).Scan(&rowsCollumnsTemp)
+	for i := 0; i < len(Seats); i++ {
+
+		seatID := Seats[i].Id
+		initializers.DB.Raw("SELECT reservation_state FROM tickets WHERE seat_id_fk = ? ", seatID).Scan(&reservation_state)
+
+		Seats[i].Reservation_state = reservation_state
+	}
 
 	c.JSON(200, gin.H{
 		"Seats":    Seats,

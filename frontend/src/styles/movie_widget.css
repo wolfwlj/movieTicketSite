@@ -1,12 +1,34 @@
 
+.Movie-Carousel{
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    padding: 20px;
+    box-sizing: border-box;
+}
 
 
-.MovieName-widget{}
-.MovieRoom-widget{}
-.MovieDate-widget{}
 .MovieImg-widget{
-    width: 400px;
-    height: 100%;
+    
+    height: 55vh;
     max-height: 100%;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10rem;
+    margin-inline: 0 auto;
+}
+/* .white {
+    color: #fff;
+} */
+.MovieName-Caption{
+    margin-bottom: 2rem;
+}
 
+.alignCenter{
+    text-align: center;
 }

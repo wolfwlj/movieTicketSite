@@ -8,12 +8,18 @@ import HomeScreen from './screens/HomeScreen';
 import LoginScreen from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen';
 import TicketScreen from './screens/TicketScreen';
+import MyTicketsScreen from './screens/MyTicketsScreen';
+import ProfileScreen from './screens/ProfileScreen';
 
 
 
 function App() {
-  const [usernameEmit, setUsernameEmit] = useState('')
   const [userID, setUserID] = useState(0)
+  const [usernameEmit, setUsernameEmit] = useState('')
+  const [userEmail, setUserEmail] = useState('')
+  const [userFirstName, setFirstName] = useState('')
+  const [userLastName, setLastName] = useState('')
+  const [userBirthdate, setBirthdate] = useState('')
 
 
   useEffect(() => {
@@ -27,14 +33,15 @@ function App() {
       })
 
       const content = await res.json()
+      console.log(content)
       let arr = []
       arr.push(content)
       setUsernameEmit(content.Username)
       setUserID(content.id)
-
-      console.log(usernameEmit)
-      console.log(userID)
-
+      setUserEmail(content.Email)
+      setFirstName(content.First_name)
+      setLastName(content.Last_name)
+      setBirthdate(content.Birthdate)
     }
     )()
   })
@@ -46,7 +53,6 @@ function App() {
   return (
     <Router>
       <Header  usernameEmit={usernameEmit} setUsernameEmit={setUsernameEmit}/>
-      {/* <p>{content.Id}</p> */}
       <main >
         <Container>
           <Routes>
@@ -54,6 +60,17 @@ function App() {
             <Route path="/signup" element={<SignupScreen/>} />
             <Route path="/login" element={<LoginScreen usernameEmit={usernameEmit} setUsernameEmit={setUsernameEmit}/>} />
             <Route path="/movie/:id" element={<TicketScreen usernameEmit={usernameEmit} userID={userID}/>} />
+            <Route path="/mytickets" element={<MyTicketsScreen usernameEmit={usernameEmit} userID={userID}/>} />
+            <Route path="/profile" element={
+            <ProfileScreen 
+              userEmail={userEmail} 
+              userFirstName={userFirstName} 
+              userLastName={userLastName} 
+              userBirthdate={userBirthdate}
+              usernameEmit={usernameEmit} 
+              userID={userID}/>
+            } 
+            />
 
           </Routes>
         </Container>

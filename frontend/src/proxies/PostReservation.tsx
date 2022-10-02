@@ -4,7 +4,7 @@ import axios from 'axios'
 
 export const PostReservation = (userID, seatID, movieID ) =>{
     return axios
-    .post(`http://localhost:9090/seat`,  
+    .post(`http://localhost:9090/ticket`,  
         {
             Seat_id : seatID,
             User_id: userID,

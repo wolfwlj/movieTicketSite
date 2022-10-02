@@ -5,7 +5,7 @@ import Seat  from './Seat';
 
 interface Props {  
 
-  movieRoomID: string;
+  movieRoomID: Number;
   movieRoom: string;
   usernameEmit: string
   userID : Number
@@ -13,7 +13,7 @@ interface Props {
 }
 
 function SeatContainer({movieRoomID, movieRoom, usernameEmit, userID, movieID}: Props) {
-
+  console.log(movieRoomID)
   const [seats, setSeats] = useState([])
   const [seatRows, setSeatsRows] = useState(0)
   const [seatCollumns, setSeatsCollumns] = useState(0)
@@ -26,9 +26,9 @@ function SeatContainer({movieRoomID, movieRoom, usernameEmit, userID, movieID}: 
 
 
 
-  const fetchSeats = async (movieRoomID) => {
-      console.log(movieRoomID)
-      await GetSeats(movieRoomID)
+  const fetchSeats = async (movieRoomID, movieID) => {
+      console.log(movieRoomID, movieID)
+      await GetSeats(movieRoomID, movieID)
       .then((data) => {
         setSeats(data.Seats)
         setSeatsRows(data.Quantity.Row_count)
@@ -46,8 +46,8 @@ function SeatContainer({movieRoomID, movieRoom, usernameEmit, userID, movieID}: 
   
   }
   useEffect(() => {
-    fetchSeats(movieRoomID)
-  }, [movieRoomID]);
+    fetchSeats(movieRoomID, movieID)
+  }, [movieRoomID, movieID]);
 
 
 
@@ -65,7 +65,7 @@ function SeatContainer({movieRoomID, movieRoom, usernameEmit, userID, movieID}: 
       }
 
       }>
-        {seats.map((seat: any) => <Seat userID={userID} usernameEmit={usernameEmit} movieID={movieID} seatID={seat.Id} seat={seat}  key={seat.Id} /> )} 
+        {seats.map((seat: any) => <Seat  userID={userID} usernameEmit={usernameEmit} movieID={movieID} seatID={seat.Id} seat={seat}  key={seat.Id} /> )} 
 
     </div>
     </>

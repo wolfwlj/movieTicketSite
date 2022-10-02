@@ -55,10 +55,18 @@ func main() {
 	// ------- End of movie routes -----------------------------------------------
 
 	// seat route(s) : -----------------------------------------------------------
-	router.POST("/seat", middleware.RequireAuth, controllers.ReserveSeat)
-	router.GET("/seat/:id", controllers.SeatIndex)
+	// router.POST("/seat", middleware.RequireAuth, controllers.ReserveSeat)
+	router.GET("/seat/:movieID", controllers.SeatIndex)
 
-	// ------- End of movie routes -----------------------------------------------
+	// ------- End of seat routes -----------------------------------------------
 
+	// ticket route(s) : -----------------------------------------------------------
+	router.POST("/ticket", controllers.ReserveTicket)
+
+	router.GET("/ticket/:user_id", controllers.GetMyTickets)
+
+	// router.GET("/seat/:id", controllers.SeatIndex)
+
+	// ------- End of ticket routes -----------------------------------------------
 	router.Run(":9090")
 }

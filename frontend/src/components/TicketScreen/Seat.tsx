@@ -9,10 +9,11 @@ interface Props {
     userID : Number
     movieID : Number
     seatID : Number
+
   }
 
 
-function Seat({seat, usernameEmit, userID, movieID, seatID}: Props) {
+function Seat({seat, usernameEmit, userID, movieID, seatID }: Props) {
 
 
     const { isShown, toggle } = UseModal();
@@ -58,7 +59,7 @@ function Seat({seat, usernameEmit, userID, movieID, seatID}: Props) {
                 {seat.Seat_name}
             </p>
         
-            <TicketModal movieID={movieID} seatID={seat.Id} userID={userID} usernameEmit={usernameEmit} isShown={isShown} hide={toggle} seat_name={seat.Seat_name}/>
+            <TicketModal  movieID={movieID} seatID={seat.Id} userID={userID} usernameEmit={usernameEmit} isShown={isShown} hide={toggle} seat_name={seat.Seat_name}/>
         </div>
 
     )
