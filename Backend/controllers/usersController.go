@@ -127,8 +127,9 @@ func Login(c *gin.Context) {
 	}
 
 	//Send a response with the user data
-	c.SetSameSite(http.SameSiteLaxMode)
-	c.SetCookie("token", tokenString, 3600*24*30, "", "", false, true)
+	c.SetSameSite(http.SameSiteNoneMode)
+
+	c.SetCookie("token", tokenString, 3600*24*30, "", "https://movie.wolfolthuis.com/", true, true)
 	c.JSON(http.StatusOK, gin.H{
 		// "token": tokenString,
 

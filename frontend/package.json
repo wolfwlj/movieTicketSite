@@ -1,6 +1,8 @@
 {
   "name": "frontend",
-  "version": "0.1.0",
+  "homepage": "https://movie.wolfolthuis.com",
+  "version": "1.0.0",
+  "description": "blablabla movies n stuff",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.5",

@@ -14,11 +14,6 @@ import (
 
 func RequireAuth(c *gin.Context) {
 
-	// c.Header("Access-Control-Allow-Origin", "http://localhost:8080")
-	// c.Header("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, OPTIONS")
-	// c.Header("Access-Control-Allow-Headers", "Origin, Authorization, Content-Type, X-Requested-With, Accept")
-	// c.Header("Access-Control-Allow-Credentials", "true")
-	//get cookie
 	tokenString, err := c.Cookie("token")
 
 	if err != nil {
