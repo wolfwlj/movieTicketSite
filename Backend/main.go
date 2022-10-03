@@ -4,7 +4,6 @@ import (
 	"movieBackend/controllers"
 	"movieBackend/initializers"
 	"movieBackend/middleware"
-	"os"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -71,8 +70,8 @@ func main() {
 	// router.GET("/seat/:id", controllers.SeatIndex)
 
 	// ------- End of ticket routes -----------------------------------------------
-	PORT := os.Getenv("PORT")
+	// PORT := os.Getenv("PORT")
 	// ADDR := os.Getenv("ADDR")
 
-	router.Run(PORT)
+	router.Run()
 }
