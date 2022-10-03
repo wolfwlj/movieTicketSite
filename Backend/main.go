@@ -71,6 +71,8 @@ func main() {
 	// router.GET("/seat/:id", controllers.SeatIndex)
 
 	// ------- End of ticket routes -----------------------------------------------
-	port := os.Getenv("PORT")
-	router.Run(port)
+	PORT := os.Getenv("PORT")
+	ADDR := os.Getenv("ADDR")
+
+	router.Run(ADDR, PORT)
 }
