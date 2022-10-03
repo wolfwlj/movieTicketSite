@@ -70,8 +70,7 @@ func main() {
 	// router.GET("/seat/:id", controllers.SeatIndex)
 
 	// ------- End of ticket routes -----------------------------------------------
-
+	gin.SetMode(gin.ReleaseMode)
 	port := os.Getenv("PORT")
-
 	router.Run(port)
 }
