@@ -96,6 +96,7 @@ func Login(c *gin.Context) {
 	if user.ID == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": "Invalid username or password",
+			"usr":   user,
 		})
 		return
 	}
