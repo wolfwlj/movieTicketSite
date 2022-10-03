@@ -17,6 +17,8 @@ func init() {
 
 }
 func main() {
+	gin.SetMode(gin.ReleaseMode)
+
 	router := gin.Default()
 	router.Use(cors.New(cors.Config{
 		AllowOrigins: []string{"https://movie.wolfolthuis.com"},
@@ -70,7 +72,6 @@ func main() {
 	// router.GET("/seat/:id", controllers.SeatIndex)
 
 	// ------- End of ticket routes -----------------------------------------------
-	gin.SetMode(gin.ReleaseMode)
 	port := os.Getenv("PORT")
 	router.Run(port)
 }
