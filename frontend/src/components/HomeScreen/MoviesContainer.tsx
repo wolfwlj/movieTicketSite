@@ -9,9 +9,9 @@ import Carousel from 'react-bootstrap/Carousel';
 const MoviesContainer = () => {
     const [movies, setMovies] = useState([])
     // const [room, setRoom] = useState('')
-
+    //http://localhost:9090/movie
     const fetchMovies = async () => {
-        await axios.get('http://localhost:9090/movie', { withCredentials: true })
+        await axios.get('https://gin-production-6435.up.railway.app/movie', { withCredentials: true })
         .then((response) => {
             setMovies(response.data.Movies)
 

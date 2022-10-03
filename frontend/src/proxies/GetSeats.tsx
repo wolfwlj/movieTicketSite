@@ -10,7 +10,8 @@ export const GetSeats = (movieRoomID, movieID) => {
         params: params
       }
     return axios
-    .get(`http://localhost:9090/seat/${movieID}`, { withCredentials: true })
+    //http://localhost:9090/seat
+    .get(`https://gin-production-6435.up.railway.app/seat/${movieID}`, { withCredentials: true })
     .then((response) => {
         console.log(response.data.Seats)
         console.log(response.data.Quantity)

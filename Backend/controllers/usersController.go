@@ -88,7 +88,8 @@ func Login(c *gin.Context) {
 	//Find the user by username
 	var user models.User
 
-	initializers.DB.First(&user, "username= ?", body.Username)
+	// initializers.DB.First(&user, "username= ?", body.Username)
+	initializers.DB.Raw("SELECT id, username, first_name, last_name, email, birthdate FROM users WHERE username = ?", body.Username).Scan(&user)
 
 	//Check if the user exists
 

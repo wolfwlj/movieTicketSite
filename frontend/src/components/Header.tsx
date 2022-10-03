@@ -14,8 +14,8 @@ const Header = ({usernameEmit, setUsernameEmit}: Props) => {
    const logoutHandler = async (e: SyntheticEvent) => {
       e.preventDefault()
 
-      
-      await fetch('http://localhost:9090/logout', {
+      //http://localhost:9090/logout
+      await fetch('https://gin-production-6435.up.railway.app/logout', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         credentials: 'include',
