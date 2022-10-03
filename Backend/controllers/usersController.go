@@ -95,8 +95,7 @@ func Login(c *gin.Context) {
 
 	if user.ID == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "Invalid username or password",
-			"usr":   user,
+			"error": "Invalid username or password" + body.Username,
 		})
 		return
 	}
@@ -106,8 +105,7 @@ func Login(c *gin.Context) {
 	err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(body.Password))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "Invalid username or password",
-			"usr":   user,
+			"error": "Invalid username or password" + body.Username + "2",
 		})
 		return
 	}
