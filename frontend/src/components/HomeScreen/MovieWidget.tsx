@@ -20,7 +20,7 @@ function MovieWidget({movie}: Props) {
 
             </Carousel.Caption>
             <Carousel.Caption className="MovieButton-Caption">
-                <button> 
+                <button className='Ticket-Button'> 
                     <a className='white' href={`/movie/${movie.Movie_id}`}>Buy a ticket</a>
                 </button>            
             </Carousel.Caption>

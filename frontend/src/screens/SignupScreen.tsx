@@ -20,8 +20,8 @@ const SignupScreen = () => {
     const submitHandler = async (e: SyntheticEvent) => {
         e.preventDefault()
         console.log(username, firstName, lastName, birthday, email, password,  confirmPassword)
-        //http://localhost:9090/signup
-        await fetch('https://gin-production-6435.up.railway.app/signup', {
+        await fetch('http://localhost:9090/signup', {
+        // await fetch('https://gin-production-6435.up.railway.app/signup', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({

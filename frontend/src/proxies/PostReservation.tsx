@@ -4,8 +4,8 @@ import axios from 'axios'
 
 export const PostReservation = (userID, seatID, movieID ) =>{
     return axios
-    //http://localhost:9090/ticket
-    .post(`https://gin-production-6435.up.railway.app/ticket`,  
+    .post(`http://localhost:9090/ticket`,  
+    // .post(`https://gin-production-6435.up.railway.app/ticket`,  
         {
             Seat_id : seatID,
             User_id: userID,

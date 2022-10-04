@@ -20,13 +20,14 @@ function App() {
   const [userFirstName, setFirstName] = useState('')
   const [userLastName, setLastName] = useState('')
   const [userBirthdate, setBirthdate] = useState('')
+  const [userArr, setArr] = useState([])
 
 
   useEffect(() => {
     (
     async () => {
-    //'http://localhost:9090/validate'
-      const res = await fetch('https://gin-production-6435.up.railway.app/validate', {
+    const res = await fetch('http://localhost:9090/validate', {
+      // const res = await fetch('https://gin-production-6435.up.railway.app/validate', {
         method: 'GET',
         headers: {'Content-Type': 'application/json'},
         credentials: 'include',

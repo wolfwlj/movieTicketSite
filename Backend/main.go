@@ -19,7 +19,8 @@ func main() {
 
 	router := gin.Default()
 	router.Use(cors.New(cors.Config{
-		AllowOrigins: []string{"https://movie.wolfolthuis.com"},
+		// AllowOrigins: []string{"https://movie.wolfolthuis.com"},
+		AllowOrigins: []string{"http://localhost:3000"},
 		AllowMethods: []string{"PUT", "PATCH", "GET", "POST", "DELETE", "OPTIONS"},
 
 		//chage same site to none
@@ -73,5 +74,5 @@ func main() {
 	// PORT := os.Getenv("PORT")
 	// ADDR := os.Getenv("ADDR")
 
-	router.Run()
+	router.Run(":9090")
 }

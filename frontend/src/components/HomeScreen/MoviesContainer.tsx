@@ -9,9 +9,9 @@ import Carousel from 'react-bootstrap/Carousel';
 const MoviesContainer = () => {
     const [movies, setMovies] = useState([])
     // const [room, setRoom] = useState('')
-    //http://localhost:9090/movie
     const fetchMovies = async () => {
-        await axios.get('https://gin-production-6435.up.railway.app/movie', { withCredentials: true })
+        await axios.get('http://localhost:9090/movie', { withCredentials: true })
+        // await axios.get('https://gin-production-6435.up.railway.app/movie', { withCredentials: true })
         .then((response) => {
             setMovies(response.data.Movies)
 
@@ -30,7 +30,11 @@ const MoviesContainer = () => {
     // <div className="MoviesContainer">
     <Carousel variant="dark" className='Movie-Carousel'>
         
-                {movies.map((movie: any) => <Carousel.Item><MovieWidget movie={movie}  key={movie.Movie_id} />  </Carousel.Item>)} 
+                {movies.map((movie: any) => 
+                    <Carousel.Item>
+                        <MovieWidget movie={movie}  key={movie.Movie_id} />  
+                    </Carousel.Item>
+                )} 
        
     {/* // </div> */}
     </Carousel>

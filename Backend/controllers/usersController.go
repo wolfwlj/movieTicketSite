@@ -13,11 +13,7 @@ import (
 )
 
 func Signup(c *gin.Context) {
-	// c.Header("Access-Control-Allow-Origin", "http://localhost:8080")
-	// c.Header("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, OPTIONS")
-	// c.Header("Access-Control-Allow-Headers", "Origin, Authorization, Content-Type, X-Requested-With, Accept")
-	// c.Header("Access-Control-Allow-Credentials", "true")
-	//Get email/password from the request
+
 	var body struct {
 		Username   string
 		Password   string
@@ -70,10 +66,6 @@ func Signup(c *gin.Context) {
 
 func Login(c *gin.Context) {
 
-	// c.Header("Access-Control-Allow-Origin", "http://localhost:8080")
-	// c.Header("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, OPTIONS")
-	// c.Header("Access-Control-Allow-Headers", "Origin, Authorization, Content-Type, X-Requested-With, Accept")
-	// c.Header("Access-Control-Allow-Credentials", "true")
 	var body struct {
 		Username string
 		Password string

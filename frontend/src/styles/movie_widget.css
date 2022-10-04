@@ -32,3 +32,15 @@
 .alignCenter{
     text-align: center;
 }
+
+.Ticket-Button{
+    border-radius: 10px;
+    background-color: #fbf7f3;
+
+}
+.Ticket-Button > a{
+    border-radius: 10px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}

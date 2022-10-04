@@ -105,6 +105,7 @@ func MovieShow(c *gin.Context) {
 }
 
 func MovieUpdate(c *gin.Context) {
+
 	id := c.Param("id")
 
 	var body struct {
