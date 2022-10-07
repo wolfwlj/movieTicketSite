@@ -1,6 +1,5 @@
 import '../../styles/seats.css'
 import TicketModal from './TicketModal'
-import { useEffect, useState } from 'react'
 import { UseModal } from './UseModal'
 
 interface Props {  
@@ -9,11 +8,15 @@ interface Props {
     userID : Number
     movieID : Number
     seatID : Number
-
+    movieViewingDate : string
+    movieStartTime : string
+    movieEndTime : string
+    movieName   : string
+    
   }
 
 
-function Seat({seat, usernameEmit, userID, movieID, seatID }: Props) {
+function Seat({seat, usernameEmit, userID, movieID, seatID, movieViewingDate, movieStartTime, movieEndTime, movieName}: Props) {
 
 
     const { isShown, toggle } = UseModal();
@@ -59,7 +62,21 @@ function Seat({seat, usernameEmit, userID, movieID, seatID }: Props) {
                 {seat.Seat_name}
             </p>
         
-            <TicketModal  movieID={movieID} seatID={seat.Id} userID={userID} usernameEmit={usernameEmit} isShown={isShown} hide={toggle} seat_name={seat.Seat_name}/>
+            <TicketModal  
+                movieID={movieID} 
+                seatID={seat.Id} 
+                userID={userID} 
+                usernameEmit={usernameEmit} 
+                isShown={isShown} 
+                hide={toggle} 
+                seat_name={seat.Seat_name}
+                movieViewingDate={movieViewingDate}
+                movieStartTime={movieStartTime}
+                movieEndTime={movieEndTime}
+                movieName={movieName}
+                seatState={seat.Reservation_state}
+
+            />
         </div>
 
     )

@@ -9,7 +9,7 @@ function MovieWidget({movie}: Props) {
   return (
         <>
             <div className='alignCenter'>
-                <img className="MovieImg-widget" src={movie.Image_url} />
+                <img alt='movie-poster' className="MovieImg-widget" src={movie.Image_url} />
 
             </div>
 

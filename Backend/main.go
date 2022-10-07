@@ -67,6 +67,7 @@ func main() {
 	router.POST("/ticket", controllers.ReserveTicket)
 
 	router.GET("/ticket/:user_id", controllers.GetMyTickets)
+	router.DELETE("/ticket/:ticket_id", controllers.DeleteTicket)
 
 	// router.GET("/seat/:id", controllers.SeatIndex)
 

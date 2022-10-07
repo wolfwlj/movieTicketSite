@@ -1,6 +1,4 @@
-import { useEffect } from 'react'
 import '../../styles/seats.css'
-import { useParams } from "react-router-dom";
 
 import { PostReservation } from '../../proxies/PostReservation'
 import { useNavigate  } from 'react-router'
@@ -13,7 +11,11 @@ export interface ModalProps {
     userID : Number
     movieID : Number
     seatID : Number
-
+    movieViewingDate : string
+    movieStartTime : string
+    movieEndTime : string
+    movieName   : string
+    seatState : string
   }
 
 
@@ -25,7 +27,12 @@ const MODAL_STYLES = {
     backgroundColor: '#FFF',
     padding: '50px',
     zIndex: 1000,
-    border: '1px solid #000'
+    border: '1px solid #000',
+    display: 'flex',
+    flexDirection: 'column' as 'column',
+    justifyContent: 'space-between'
+    
+
 }
 const OVERLAY_STYLES = {
     position: 'fixed' as 'fixed',
@@ -38,11 +45,25 @@ const OVERLAY_STYLES = {
 }
 
 
-function TicketModal({isShown, hide, seat_name, userID, movieID, seatID}: ModalProps) {
-    let navigate = useNavigate()
-    const {id} = useParams<{id: string}>()
+function TicketModal({
+    isShown, 
+    hide, 
+    seat_name, 
+    userID, 
+    movieID, 
+    seatID, 
+    movieViewingDate, 
+    movieStartTime, 
+    movieEndTime, 
+    movieName, 
+    seatState
+}: ModalProps) {
 
-    const navParam = Number(id)
+    
+    let navigate = useNavigate()
+    // const {id} = useParams<{id: string}>()
+
+    // const navParam = Number(id)
 
     const reserveSeat = async (userID, seatID, movieID) => {
 
@@ -50,10 +71,7 @@ function TicketModal({isShown, hide, seat_name, userID, movieID, seatID}: ModalP
             .then((data) => {
                 console.log(data)
                 navigate(0);
-                // setSeatSeatID(data.Id)
-            // setSeatName(data.Seat_name)
-            // setSeatState(data.Reservation_state)
-            // setRoomID(data.Room_id_fk)
+
     
             })
             .catch((err) => {
@@ -61,24 +79,43 @@ function TicketModal({isShown, hide, seat_name, userID, movieID, seatID}: ModalP
             })  
 
     }
-    // useEffect(() => {
-    // //     fetchSeats(navParam)
-    // // }, [movieID]);
+
 
 
     if( !isShown) return null
-
-    return (
+    if(seatState == 'reserved' )return (
+        <>
+        <div style={OVERLAY_STYLES} />
+        <div style={MODAL_STYLES} >
+            <p>this seat is already reserved</p>
+        </div>
+        </>
+    )
+    if(seatState == 'available' )return (
         <>
             <div style={OVERLAY_STYLES} />
             <div style={MODAL_STYLES} >
+                <div>
+                    <h2>Confirm Seat Reservation</h2>
+                </div>
 
-            <h3>{seat_name}</h3>
+                <div>
+                    <p>Seat name : {seat_name}</p>
+                    <p>{movieName}</p>
+                    <p>{movieViewingDate}</p>
+                    <p>{movieStartTime} - {movieEndTime}</p>
+            
+                </div>
+                
+                <div className='buttons_div'>
+                    
+                    <button className='close_button' onClick={hide}>Close</button>    
 
-            <button onClick={() => reserveSeat(userID, seatID, movieID)}>Reserve seat</button>
+                    <button className='reserve_button' onClick={() => reserveSeat(userID, seatID, movieID)}>Reserve seat</button>
 
-            <button onClick={hide}>Close</button>            
-        </div>
+                </div>
+            
+            </div>
         </>
     )
 }

@@ -23,10 +23,7 @@ const MyTicketContainer = ({usernameEmit, userID} :Props) => {
             setTickets(data.tickets)
             
   
-          // setSeatSeatID(data.Id)
-          // setSeatName(data.Seat_name)
-          // setSeatState(data.Reservation_state)
-          // setRoomID(data.Room_id_fk)
+
   
         })
         .catch((err) => {
@@ -52,16 +49,26 @@ const MyTicketContainer = ({usernameEmit, userID} :Props) => {
         <Table striped bordered hover>
         <thead>
             <tr>
-            <th>Ticket nr</th>
-            <th>Movie name</th>
-            <th>Cinema room</th>
-            <th>Reserved Seat</th>
-            <th>Viewing date</th>
-            <th>Viewing start time</th>
-            <th>Viewing end time</th>
+                <th>Ticket nr</th>
+                <th>Movie name</th>
+                <th>Cinema room</th>
+                <th>Reserved Seat</th>
+                <th>Viewing date</th>
+                <th>Viewing start time</th>
+                <th>Viewing end time</th>
+                <th>Cancel ticket</th>
+
             </tr>
         </thead>
-        {tickets.map((ticket: any) => <MyTicket   usernameEmit={usernameEmit} userID={userID} ticket={ticket} ticketID={ticket.Id} key={ticket.Id}/> )} 
+        {tickets.map((ticket: any) => 
+
+                <MyTicket   
+                    usernameEmit={usernameEmit} 
+                    userID={userID} 
+                    ticket={ticket} 
+                    ticketID={ticket.Id} 
+                    key={ticket.Id}/> 
+                )} 
 
         </Table>
 

@@ -2,13 +2,13 @@ import axios from 'axios';
 
 
 export const GetSeats = (movieRoomID, movieID) => {
-    var params = new URLSearchParams();
+    // var params = new URLSearchParams();
 
-    params.append('movieRoomID', movieRoomID);
-    params.append('movieID', movieID);
-    const request = {
-        params: params
-      }
+    // params.append('movieRoomID', movieRoomID);
+    // params.append('movieID', movieID);
+    // const request = {
+    //     params: params
+    //   }
     return axios
     .get(`http://localhost:9090/seat/${movieID}`, { withCredentials: true })
     // .get(`https://gin-production-6435.up.railway.app/seat/${movieID}`, { withCredentials: true })

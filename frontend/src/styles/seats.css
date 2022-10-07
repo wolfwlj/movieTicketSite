@@ -64,3 +64,41 @@
     z-index:  1000;
     border: '1px solid #000';
 }
+
+
+
+
+
+.buttons_div{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin-top: 2rem;
+
+    width: 100%;
+}
+
+
+.reserve_button{
+    border-radius: 10px;
+    background-color: #fbf7f3;
+
+}
+.reserve_button > a{
+    border-radius: 10px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+.close_button{
+    border-radius: 10px;
+    background-color: #fbf7f3;
+
+}
+.close_button > a{
+    border-radius: 10px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}

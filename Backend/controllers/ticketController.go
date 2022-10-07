@@ -125,3 +125,16 @@ func GetMyTickets(c *gin.Context) {
 	})
 
 }
+
+func DeleteTicket(c *gin.Context) {
+
+	ticket_id := c.Param("ticket_id")
+
+	//update ticket by ticket id
+	initializers.DB.Exec("UPDATE tickets SET reservation_state = 'available', user_id_fk = NULL WHERE id = ?", ticket_id)
+
+	c.JSON(http.StatusOK, gin.H{
+		"ticket": "ticket " + ticket_id + " deleted",
+	})
+
+}

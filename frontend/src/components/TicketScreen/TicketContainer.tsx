@@ -14,10 +14,10 @@ interface Props {
 function TicketContainer({usernameEmit, userID} : Props) {
 
     const [movieName, setMovieName] = useState('')
-    // const [movieImg, setMovieImg] = useState('')
-    // const [movieViewingDate, setMovieViewingDate] = useState('')
-    // const [movieStartTime, setMovieStartTime] = useState('')
-    // const [movieEndTime, setMovieEndTime] = useState('')
+    const [movieImg, setMovieImg] = useState('')
+    const [movieViewingDate, setMovieViewingDate] = useState('')
+    const [movieStartTime, setMovieStartTime] = useState('')
+    const [movieEndTime, setMovieEndTime] = useState('')
 
     const [movieRoomID, setMovieRoomID] = useState(0)
     const [movieRoom, setMovieRoom] = useState('')
@@ -30,20 +30,23 @@ function TicketContainer({usernameEmit, userID} : Props) {
     const fetchMovieIndex = async (id) => {
         await getMovieIndex(id)
         .then((data) => {
+
+            let splitViewDate = data.Movie.Viewing_date.split(/[T +]/);
+            let splitStartTime = data.Movie.Viewing_start_time.split(/[T +]/);
+            let splitEndTime = data.Movie.Viewing_end_time.split(/[T +]/);
+
+            let tempViewDate = splitViewDate[0]
+            let tempStartTime = splitStartTime[1]
+            let tempEndTime = splitEndTime[1]
+
             console.log(data.Movie)
             setMovieName(data.Movie.Movie_name)
-            // setMovieImg(data.Movie.Image_url)
-            // setMovieViewingDate(data.Movie.Viewing_date)
-            // setMovieStartTime(data.Movie.Viewing_start_time)
-            // setMovieEndTime(data.Movie.Viewing_end_time)
-
-
-
-
             setMovieRoom(data.RoomName)
             setMovieRoomID(data.Movie.Room_id_fk)
-
-
+            setMovieViewingDate(tempViewDate)
+            setMovieStartTime(tempStartTime)
+            setMovieEndTime(tempEndTime)
+            setMovieImg(data.Movie.Image_url)
         })
         .catch((err) => {
             console.log(err)
@@ -63,9 +66,23 @@ function TicketContainer({usernameEmit, userID} : Props) {
         <>
 
             <h1>  {movieName} </h1>
-            <h1 style={ { textAlign: 'center', }}>Room Name : {movieRoom} </h1>
-            
-            <SeatContainer userID={userID} movieID={movieID} usernameEmit={usernameEmit} movieRoomID={movieRoomID} movieRoom={movieRoom}/>
+            <h2 style={ { textAlign: 'center', }}>Room Name : {movieRoom} </h2>
+            <h4 style={ { textAlign: 'center', }}>Viewing Date : {movieViewingDate} </h4>
+            <h4 style={ { textAlign: 'center', }}>Viewing Start Time : {movieStartTime} </h4>
+            <h4 style={ { textAlign: 'center', }}>Viewing End Time : {movieEndTime} </h4>
+
+            <SeatContainer 
+                userID={userID} 
+                movieID={movieID} 
+                usernameEmit={usernameEmit} 
+                movieRoomID={movieRoomID} 
+                movieRoom={movieRoom}
+                movieViewingDate={movieViewingDate}
+                movieStartTime={movieStartTime}
+                movieEndTime={movieEndTime}
+                movieName={movieName}
+
+            />
         </>
   )
 }

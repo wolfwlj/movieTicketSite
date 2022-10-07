@@ -20,7 +20,6 @@ function App() {
   const [userFirstName, setFirstName] = useState('')
   const [userLastName, setLastName] = useState('')
   const [userBirthdate, setBirthdate] = useState('')
-  const [userArr, setArr] = useState([])
 
 
   useEffect(() => {

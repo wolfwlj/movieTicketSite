@@ -1,6 +1,6 @@
 import React, { SyntheticEvent } from 'react'
 import { Navbar, Nav, Container } from 'react-bootstrap'
-
+import '../styles/header.css'
 
 
 interface Props {

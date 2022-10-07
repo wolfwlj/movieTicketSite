@@ -10,18 +10,30 @@ interface Props {
   usernameEmit: string
   userID : Number
   movieID : Number
+  movieViewingDate: string
+  movieStartTime: string
+  movieEndTime: string
+  movieName : string
 }
 
-function SeatContainer({movieRoomID, movieRoom, usernameEmit, userID, movieID}: Props) {
+function SeatContainer({
+    movieRoomID, 
+    movieRoom, 
+    usernameEmit, 
+    userID, 
+    movieID, 
+    movieViewingDate, 
+    movieStartTime, 
+    movieEndTime, 
+    movieName
+  }: Props) {
+
   console.log(movieRoomID)
   const [seats, setSeats] = useState([])
   const [seatRows, setSeatsRows] = useState(0)
   const [seatCollumns, setSeatsCollumns] = useState(0)
 
-  // const [SeatID, setSeatSeatID] = useState('')
-  // const [SeatName, setSeatName] = useState('')
-  // const [SeatState, setSeatState] = useState('')
-  // const [RoomId, setRoomID] = useState('')
+
 
 
 
@@ -34,10 +46,6 @@ function SeatContainer({movieRoomID, movieRoom, usernameEmit, userID, movieID}: 
         setSeatsRows(data.Quantity.Row_count)
         setSeatsCollumns(data.Quantity.Row_seat_quantity)
 
-        // setSeatSeatID(data.Id)
-        // setSeatName(data.Seat_name)
-        // setSeatState(data.Reservation_state)
-        // setRoomID(data.Room_id_fk)
 
       })
       .catch((err) => {
@@ -65,7 +73,18 @@ function SeatContainer({movieRoomID, movieRoom, usernameEmit, userID, movieID}: 
       }
 
       }>
-        {seats.map((seat: any) => <Seat  userID={userID} usernameEmit={usernameEmit} movieID={movieID} seatID={seat.Id} seat={seat}  key={seat.Id} /> )} 
+        {seats.map((seat: any) => 
+        <Seat  
+          userID={userID} 
+          usernameEmit={usernameEmit} 
+          movieID={movieID} 
+          seatID={seat.Id} 
+          seat={seat}  
+          movieViewingDate={movieViewingDate}
+          movieStartTime={movieStartTime}
+          movieEndTime={movieEndTime}
+          movieName={movieName}
+          key={seat.Id} /> )} 
 
     </div>
     </>

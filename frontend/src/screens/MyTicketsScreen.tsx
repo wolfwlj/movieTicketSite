@@ -10,7 +10,7 @@ const MyTicketsScreen = ({usernameEmit, userID} : Props)  => {
     <>
             {/* <h1>username {usernameEmit} - ID : {userID}</h1> */}
           <div>
-            <h1>My Tickets</h1>
+            <h1>{usernameEmit}'s Tickets</h1>
             <MyTicketContainer usernameEmit={usernameEmit} userID={userID}/>
 
           </div>
