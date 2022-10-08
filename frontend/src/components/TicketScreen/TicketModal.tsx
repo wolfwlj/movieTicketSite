@@ -83,11 +83,31 @@ function TicketModal({
 
 
     if( !isShown) return null
+
+    if(!userID)return (
+        <>
+        <div style={OVERLAY_STYLES} />
+        <div style={MODAL_STYLES} >
+            <p>You need to login to reserve a seat</p>
+
+            <div className='buttons_div'>
+
+                <button className='close_button' onClick={hide}>Close</button>    
+            </div>
+        </div>
+        </>
+    )
+
+
     if(seatState == 'reserved' )return (
         <>
         <div style={OVERLAY_STYLES} />
         <div style={MODAL_STYLES} >
             <p>this seat is already reserved</p>
+            <div className='buttons_div'>
+                
+                <button className='close_button' onClick={hide}>Close</button>    
+            </div>
         </div>
         </>
     )

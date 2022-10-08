@@ -74,6 +74,6 @@ func main() {
 	// ------- End of ticket routes -----------------------------------------------
 	// PORT := os.Getenv("PORT")
 	// ADDR := os.Getenv("ADDR")
-
-	router.Run(":9090")
+	//":9090"
+	router.Run()
 }
