@@ -20,6 +20,7 @@ const Header = ({usernameEmit, setUsernameEmit}: Props) => {
       })
 
       setUsernameEmit('')
+      
   }
 
 

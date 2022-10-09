@@ -64,7 +64,7 @@ function Seat({seat, usernameEmit, userID, movieID, seatID, movieViewingDate, mo
         
             <TicketModal  
                 movieID={movieID} 
-                seatID={seat.Id} 
+                seatID={seat.Seat_id_fk} 
                 userID={userID} 
                 usernameEmit={usernameEmit} 
                 isShown={isShown} 

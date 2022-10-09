@@ -84,41 +84,30 @@ func GetMyTickets(c *gin.Context) {
 		Seat_id_fk         uint
 		Room_id_fk         uint
 		Movie_id_fk        uint
-		Movie_name         string
-		Room_name          string
-		Seat_name          string
-		Viewing_date       string
-		Viewing_start_time string
-		Viewing_end_time   string
+		Movie_name         string //movie table
+		Room_name          string //room table
+		Seat_name          string //seat table
+		Viewing_date       string //movie table
+		Viewing_start_time string //movie table
+		Viewing_end_time   string //movie table
 	}
 	var TicketResx = []TicketRes{}
-	// initializers.DB.Where("user_id_fk = ?", user_id).Find(&TicketResx)
-	initializers.DB.Raw("SELECT * FROM tickets WHERE user_id_fk = ? ", user_id).Scan(&TicketResx)
 
-	for i := 0; i < len(TicketResx); i++ {
-		var Movie_name string
-		var Room_name string
-		var Seat_name string
-		var Viewing_date string
-		var Viewing_start_time string
-		var Viewing_end_time string
+	//SELECT tickets.id, tickets.user_id_fk, tickets.seat_id_fk, tickets.room_id_fk,
+	//tickets.movie_id_fk, movies.movie_name, movies.viewing_date, movies.viewing_start_time,
+	//movies.viewing_end_time, rooms.room_name, seats.seat_name
+	//FROM tickets
+	//INNER JOIN movies
+	//ON tickets.movie_id_fk = movies.movie_id
+	//INNER JOIN rooms
+	//ON tickets.room_id_fk = rooms.room_id
+	//INNER JOIN seats
+	//ON tickets.seat_id_fk = seats.id
+	//WHERE tickets.user_id_fk = 9
 
-		initializers.DB.Raw("SELECT movie_name FROM movies WHERE movie_id = ? ", TicketResx[i].Movie_id_fk).Scan(&Movie_name)
-		initializers.DB.Raw("SELECT viewing_date FROM movies WHERE movie_id = ? ", TicketResx[i].Movie_id_fk).Scan(&Viewing_date)
-		initializers.DB.Raw("SELECT viewing_start_time FROM movies WHERE movie_id = ? ", TicketResx[i].Movie_id_fk).Scan(&Viewing_start_time)
-		initializers.DB.Raw("SELECT viewing_end_time FROM movies WHERE movie_id = ? ", TicketResx[i].Movie_id_fk).Scan(&Viewing_end_time)
+	// The comment above is the sql query that is executed below, Go doesn't support multiline strings so I put a formatted version above.
 
-		initializers.DB.Raw("SELECT room_name FROM rooms WHERE room_id = ?", TicketResx[i].Room_id_fk).Scan(&Room_name)
-		initializers.DB.Raw("SELECT seat_name FROM seats WHERE id = ?", TicketResx[i].Seat_id_fk).Scan(&Seat_name)
-
-		TicketResx[i].Movie_name = Movie_name
-		TicketResx[i].Room_name = Room_name
-		TicketResx[i].Seat_name = Seat_name
-		TicketResx[i].Viewing_date = Viewing_date
-		TicketResx[i].Viewing_start_time = Viewing_start_time
-		TicketResx[i].Viewing_end_time = Viewing_end_time
-
-	}
+	initializers.DB.Raw("SELECT tickets.id, tickets.user_id_fk, tickets.seat_id_fk, tickets.room_id_fk, tickets.movie_id_fk, movies.movie_name, movies.viewing_date, movies.viewing_start_time, movies.viewing_end_time, rooms.room_name, seats.seat_name FROM tickets INNER JOIN movies ON tickets.movie_id_fk = movies.movie_id INNER JOIN rooms ON tickets.room_id_fk = rooms.room_id INNER JOIN seats ON tickets.seat_id_fk = seats.id WHERE tickets.user_id_fk = ?", user_id).Scan(&TicketResx)
 
 	c.JSON(http.StatusOK, gin.H{
 		"tickets": TicketResx,

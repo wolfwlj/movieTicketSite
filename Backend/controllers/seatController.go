@@ -96,12 +96,46 @@ func CreateSeats(roomID uint, row_count uint, row_seat_quantity uint) bool {
 // }
 
 func SeatIndex(c *gin.Context) {
+	// type rowsCollumns struct {
+	// 	Row_count         uint
+	// 	Row_seat_quantity uint
+	// }
+	// type SeatResStruct struct {
+	// 	Id                uint
+	// 	Seat_name         string
+	// 	Room_id_fk        uint
+	// 	Reservation_state string
+	// }
+
+	// var Seats []SeatResStruct
+	// var rowsCollumnsTemp rowsCollumns
+	// var reservation_state string
+	// var roomID uint
+
+	// movieID := c.Param("movieID")
+
+	// initializers.DB.Raw("SELECT room_id_fk FROM movies WHERE movie_id = ?", movieID).Scan(&roomID)
+	// initializers.DB.Raw("SELECT id, seat_name, room_id_fk  FROM seats WHERE room_id_fk = ?", roomID).Scan(&Seats)
+	// initializers.DB.Raw("SELECT row_count, row_seat_quantity FROM rooms WHERE room_id = ?", roomID).Scan(&rowsCollumnsTemp)
+
+	// for i := 0; i < len(Seats); i++ {
+
+	// 	seatID := Seats[i].Id
+	// 	initializers.DB.Raw("SELECT reservation_state FROM tickets WHERE seat_id_fk = ? ", seatID).Scan(&reservation_state)
+
+	// 	Seats[i].Reservation_state = reservation_state
+	// }
+
+	// c.JSON(200, gin.H{
+	// 	"Seats":    Seats,
+	// 	"Quantity": rowsCollumnsTemp,
+	// })
 	type rowsCollumns struct {
 		Row_count         uint
 		Row_seat_quantity uint
 	}
 	type SeatResStruct struct {
-		Id                uint
+		Seat_id_fk        uint
 		Seat_name         string
 		Room_id_fk        uint
 		Reservation_state string
@@ -109,28 +143,30 @@ func SeatIndex(c *gin.Context) {
 
 	var Seats []SeatResStruct
 	var rowsCollumnsTemp rowsCollumns
-	var reservation_state string
+	// var seatName string
 	var roomID uint
 
 	movieID := c.Param("movieID")
+	// initializers.DB.Raw("SELECT * FROM tickets WHERE movie_id_fk = ?", movieID).Scan(&Seats)
+	initializers.DB.Raw(
+		"SELECT tickets.seat_id_fk, seats.seat_name, tickets.room_id_fk, tickets.reservation_state FROM tickets INNER JOIN seats ON tickets.seat_id_fk = seats.id WHERE tickets.movie_id_fk = ?",
+		movieID).Scan(&Seats)
 
 	initializers.DB.Raw("SELECT room_id_fk FROM movies WHERE movie_id = ?", movieID).Scan(&roomID)
-	initializers.DB.Raw("SELECT id, seat_name, room_id_fk  FROM seats WHERE room_id_fk = ?", roomID).Scan(&Seats)
 	initializers.DB.Raw("SELECT row_count, row_seat_quantity FROM rooms WHERE room_id = ?", roomID).Scan(&rowsCollumnsTemp)
 
-	for i := 0; i < len(Seats); i++ {
+	// for i := 0; i < len(Seats); i++ {
 
-		seatID := Seats[i].Id
-		initializers.DB.Raw("SELECT reservation_state FROM tickets WHERE seat_id_fk = ? ", seatID).Scan(&reservation_state)
+	// 	seatID := Seats[i].Seat_id_fk
+	// 	initializers.DB.Raw("SELECT seat_name FROM seats WHERE room_id_fk = ?", seatID).Scan(&seatName)
 
-		Seats[i].Reservation_state = reservation_state
-	}
+	// 	Seats[i].Seat_name = seatName
+	// }
 
 	c.JSON(200, gin.H{
 		"Seats":    Seats,
 		"Quantity": rowsCollumnsTemp,
 	})
-
 	// var Seats []models.Seat
 	// id := c.Param("id")
 
